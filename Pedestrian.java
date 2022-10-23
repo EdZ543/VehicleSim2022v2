@@ -6,14 +6,16 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public abstract class Pedestrian extends SuperSmoothMover
 {
     protected double speed;
-    protected double maxSpeed;
-    protected int direction;
+    protected double normalSpeed;
     protected boolean awake;
     
-    public Pedestrian(int direction) {
+    public Pedestrian(double normalSpeed) {
         // start as awake 
         awake = true;
-        this.direction = direction;
+        
+        // set speed
+        this.normalSpeed = normalSpeed;
+        speed = normalSpeed;
     }
 
     /**
@@ -25,7 +27,7 @@ public abstract class Pedestrian extends SuperSmoothMover
      * Method to allow a downed Pedestrian to be healed
      */
     public void healMe () {
-        speed = maxSpeed;
+        speed = normalSpeed;
         setRotation (0);
         awake = true;
     }

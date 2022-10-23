@@ -7,8 +7,9 @@ public class Bus extends Vehicle
 {
     private int stopTimer = 0;
     private int capacity = 5;
+    private int pickupRange; // How far it away from the sides a pedestrian can be to be picked up
     
-    public Bus(VehicleSpawner origin){
+    public Bus(VehicleSpawner origin, int pickupRange){
         super (origin); // call the superclass' constructor first
         
         //Set up values for Bus
@@ -16,6 +17,8 @@ public class Bus extends Vehicle
         speed = maxSpeed;
         // because the Bus graphic is tall, offset it a up (this may result in some collision check issues)
         yOffset = 15;
+        
+        this.pickupRange = pickupRange;
     }
 
     /**
@@ -39,8 +42,8 @@ public class Bus extends Vehicle
     public boolean checkHitPedestrian () {
         Pedestrian[] ps = {
             (Pedestrian)getOneObjectAtOffset((int)speed + getImage().getWidth()/2, 0, Pedestrian.class),
-            (Pedestrian)getOneObjectAtOffset(0, getImage().getHeight()/2, Pedestrian.class),
-            (Pedestrian)getOneObjectAtOffset(0, -getImage().getHeight()/2, Pedestrian.class),
+            (Pedestrian)getOneObjectAtOffset(0, getImage().getHeight()/2 + pickupRange, Pedestrian.class),
+            (Pedestrian)getOneObjectAtOffset(0, -getImage().getHeight()/2 - pickupRange, Pedestrian.class),
         };
         
         for (int i = 0; i < ps.length; i++) {

@@ -170,4 +170,15 @@ public abstract class SuperSmoothMover extends Actor
     public double getPreciseRotation (){
         return rotation;
     }
+    
+    protected double distanceTo(SuperSmoothMover actor) {
+        double distX = actor.getPreciseX() - getPreciseX(), distY = actor.getPreciseY() - getPreciseY();
+        return Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2));
+    }
+    
+    protected void moveTowards(SuperSmoothMover actor, double speed) {
+        turnTowards(actor.getX(), actor.getY());
+        move(speed);
+        setRotation(0);
+    }
 }

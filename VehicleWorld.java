@@ -50,7 +50,7 @@ public class VehicleWorld extends World
 
         // Create houses
         for(int i = 0; i < numHouses; i++) {
-            addObject(new LiminalHouse(Pedestrian.class), 50 + i * houseSpacing, 109);
+            addObject(new LiminalHouse(10, 100), 50 + i * houseSpacing, 109);
         }
     }
     public void act () {
@@ -66,12 +66,21 @@ public class VehicleWorld extends World
                 if (vehicleType == 0){
                     addObject(new Car(laneSpawners[lane]), 0, 0);
                 } else if (vehicleType == 1){
-                    addObject(new Bus(laneSpawners[lane]), 0, 0);
+                    addObject(new Bus(laneSpawners[lane], 10), 0, 0);
                 } else if (vehicleType == 2){
                     addObject(new Ambulance(laneSpawners[lane]), 0, 0);
                 } else if (vehicleType == 3){
                     addObject(new Scooter(laneSpawners[lane]), 0, 0);
                 }
+            }
+        }
+        
+        // Chance to spawn pedestrians
+        if (Greenfoot.getRandomNumber(60) == 0) {
+            int spawnX = Greenfoot.getRandomNumber(getWidth());
+            int pedestrianType = Greenfoot.getRandomNumber(1);
+            if (pedestrianType == 0) {
+                addObject(new Entity(), spawnX, 500);
             }
         }
     }

@@ -9,16 +9,15 @@ import java.util.Random;
  */
 public class Researcher extends Pedestrian
 {
+    private int direction;
     private int targetX;
     private boolean walkingToTarget = true;
     Random rand = new Random();
     
     public Researcher(int direction) {
-        super(direction);
+        super(Math.random() * 2 + 1);
         
-        // choose a random speed
-        maxSpeed = Math.random() * 2 + 1;
-        speed = maxSpeed;
+        this.direction = direction;
     }
     
     /**

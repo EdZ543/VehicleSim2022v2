@@ -8,7 +8,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class LiminalHouse extends Actor
 {
-    private int spawnOffset = 10;
+    private int spawnOffset;
+    private int spawnChance;
+    
+    public LiminalHouse(int spawnOffset, int spawnChance) {
+        this.spawnOffset = spawnOffset;
+        this.spawnChance = spawnChance;
+    }
     
     /**
      * Act - do whatever the LiminalHouse wants to do. This method is called whenever

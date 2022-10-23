@@ -1,19 +1,21 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Entity here.
+ * Entity. Every interval, it finds the nearest researcher and chases after them.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
 public class Entity extends Pedestrian
 {
-    public Entity(int direction) {
-        super(direction);
-        
-        // choose a random speed
-        maxSpeed = Math.random() * 2 + 1;
-        speed = maxSpeed;
+    private Pedestrian currentTarget = null;
+    private int lifeTimer = 0;
+    private int viewRadius = 600;
+    private int armRadius = 30;
+    private int speedIncrease = 2;
+    
+    public Entity() {
+        super(Math.random() * 2 + 1);
     }
     
     /**
@@ -22,10 +24,45 @@ public class Entity extends Pedestrian
      */
     public void act()
     {
-        // Add your action code here.
+        if (lifeTimer % 10 == 0) {
+            targetNearest();
+        }
+        lifeTimer++;
+        
+        if (isSuitableTarget(currentTarget)) {
+            moveTowards(currentTarget, speed);
+        }
+        
+        if (isSuitableTarget(currentTarget) && distanceTo(currentTarget) <= armRadius) {
+            if (currentTarget instanceof Researcher) {
+                currentTarget.knockDown();
+            } else if (currentTarget instanceof Entity) {
+                getWorld().removeObject(currentTarget);
+                normalSpeed += speedIncrease;
+                speed = normalSpeed;
+            }
+        }
     }
     
-    public void knockDown () {
+    private void targetNearest() {
+        for (Pedestrian p : getObjectsInRange(viewRadius, Pedestrian.class)) {
+            if (isSuitableTarget(currentTarget)) {
+                if (isSuitableTarget(p) && distanceTo(p) < distanceTo(currentTarget)) {
+                    currentTarget = p;
+                }
+            } else {
+                currentTarget = p;
+            }
+        }
+    }
+    
+    private boolean isSuitableTarget(Pedestrian p) {
+        boolean exists = p != null && p.getWorld() != null;
+        boolean rightType = (p instanceof Researcher && p.isAwake()) || (p instanceof Entity && !p.isAwake());
+        return exists && rightType;
+    }
+    
+    public void knockDown() {
         speed = 0;
         setRotation (90);
         awake = false;
