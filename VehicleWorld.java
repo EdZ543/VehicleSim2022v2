@@ -85,8 +85,8 @@ public class VehicleWorld extends World
         }
         
         // Chance to spawn an effect
-        if (!BloodMoon.happening() && Greenfoot.getRandomNumber(250) == 0) {
-            int duration = Greenfoot.getRandomNumber(600) + 600;
+        if (!BloodMoon.happening() && Greenfoot.getRandomNumber(400) == 0) {
+            int duration = Greenfoot.getRandomNumber(200) + 100;
             addObject(new BloodMoon(duration), getWidth() / 2, getHeight() / 2);
         }
     }

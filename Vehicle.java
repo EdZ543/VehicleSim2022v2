@@ -13,6 +13,7 @@ public abstract class Vehicle extends SuperSmoothMover
     protected int yOffset;
     protected VehicleSpawner origin;
     protected boolean swerving = false;
+    protected double swerveTimer = 0;
     
     public Vehicle (VehicleSpawner origin) {
         this.origin = origin;
@@ -71,10 +72,12 @@ public abstract class Vehicle extends SuperSmoothMover
             speed = ahead.getSpeed();
         }
         
+        move (speed * direction);
+        
         if (swerving) {
-            
-        } else {
-            move (speed * direction);
+            swerveTimer += 0.1;
+            double swerveDistance = Math.sin(swerveTimer) * 10;
+            setLocation(getX(), getY() + swerveDistance);
         }
     }   
 
@@ -92,5 +95,6 @@ public abstract class Vehicle extends SuperSmoothMover
     
     public void stopSwerving() {
         swerving = false;
+        swerveTimer = 0;
     }
 }
