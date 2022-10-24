@@ -13,6 +13,7 @@ public class Researcher extends Pedestrian
     private int targetX;
     private boolean walkingToTarget = true;
     Random rand = new Random();
+    private boolean scooting = false;
     
     public Researcher(int direction) {
         super(Math.random() + 1);
@@ -26,7 +27,6 @@ public class Researcher extends Pedestrian
      */
     public void act()
     {
-        // If there is a v
         if (awake){
             if (walkingToTarget) {
                 walkToTarget();            
@@ -58,13 +58,21 @@ public class Researcher extends Pedestrian
         }  
     }
     
-    public void knockDown () {
-        speed = 0;
-        setRotation (90);
-        awake = false;
-    }
-    
     public boolean walkingToTarget() {
         return walkingToTarget;
+    }
+    
+    public void mountScooter() {
+        scooting = true;
+            
+        // alter image to put scooter
+        GreenfootImage temp = new GreenfootImage(90, 90);
+        temp.drawImage(new GreenfootImage("researcher.png"), 45, 45);
+        temp.drawImage(new GreenfootImage("scooter.png"), 45, 45);
+        setImage(temp);
+    }
+    
+    public boolean scooting() {
+        return scooting;
     }
 }

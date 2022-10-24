@@ -12,7 +12,7 @@ public class Entity extends Pedestrian
     private int lifeTimer = 0;
     private int viewRadius = 600;
     private int armRadius = 30;
-    private double speedIncrease = 0.2;
+    private double speedIncrease = 1;
     
     public Entity() {
         super(Math.random() + 0.2);
@@ -24,22 +24,29 @@ public class Entity extends Pedestrian
      */
     public void act()
     {
-        if (lifeTimer % 10 == 0) {
-            targetNearest();
-        }
-        lifeTimer++;
-        
-        if (isSuitableTarget(currentTarget)) {
-            moveTowards(currentTarget, speed);
-        }
-        
-        if (isSuitableTarget(currentTarget) && distanceTo(currentTarget) <= armRadius) {
-            if (currentTarget instanceof Researcher) {
-                currentTarget.knockDown();
-            } else if (currentTarget instanceof Entity) {
-                getWorld().removeObject(currentTarget);
-                normalSpeed += speedIncrease;
-                speed += speedIncrease;
+        if (awake) {
+            if (lifeTimer % 10 == 0) {
+                targetNearest();
+            }
+            lifeTimer++;
+            
+            if (isSuitableTarget(currentTarget)) {
+                moveTowards(currentTarget, speed);
+            }
+            
+            if (isSuitableTarget(currentTarget) && distanceTo(currentTarget) <= armRadius) {
+                if (currentTarget instanceof Researcher) {
+                    Researcher r = (Researcher)currentTarget;
+                    if (r.scooting()) {
+                        knockDown();
+                    } else {
+                        r.knockDown();
+                    }
+                } else if (currentTarget instanceof Entity) {
+                    getWorld().removeObject(currentTarget);
+                    normalSpeed += speedIncrease;
+                    speed += speedIncrease;
+                }
             }
         }
     }
@@ -69,11 +76,5 @@ public class Entity extends Pedestrian
         }
         
         return false;
-    }
-    
-    public void knockDown() {
-        speed = 0;
-        setRotation (90);
-        awake = false;
     }
 }

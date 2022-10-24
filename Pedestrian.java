@@ -21,7 +21,11 @@ public abstract class Pedestrian extends SuperSmoothMover
     /**
      * Method to cause this Pedestrian to become knocked down - stop moving, turn onto side
      */
-    public abstract void knockDown ();
+    public void knockDown() {
+        speed = 0;
+        setRotation (90);
+        awake = false;
+    }
 
     /**
      * Method to allow a downed Pedestrian to be healed

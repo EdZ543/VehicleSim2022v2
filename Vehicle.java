@@ -29,7 +29,7 @@ public abstract class Vehicle extends SuperSmoothMover
     }
     
     public void act () {
-        if (checkEdge()){
+        if (getWorld() != null && checkEdge()){
             getWorld().removeObject(this);
         }
     }

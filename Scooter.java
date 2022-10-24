@@ -9,18 +9,36 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Scooter extends Vehicle
 {
     public Scooter(VehicleSpawner origin) {
-        super(origin);
+        super(origin); // call the superclass' constructor
+        maxSpeed = 1.5 + ((Math.random() * 30)/5);
+        speed = maxSpeed;
+        yOffset = 0;
     }
-    /**
-     * Act - do whatever the Scooter wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+
     public void act()
     {
-        // Add your action code here.
+        drive(); 
+        checkHitPedestrian();
+        super.act();
     }
     
-    protected boolean checkHitPedestrian() {
+    /**
+     * When a Scooter hit's a Pedestrian, it should knock it over, unless it's a Researcher
+     */
+    public boolean checkHitPedestrian () {
+        Pedestrian p = (Pedestrian)getOneObjectAtOffset((int)speed + getImage().getWidth()/2, 0, Pedestrian.class);
+        
+        if (p != null){
+            if (p instanceof Researcher && p.isAwake()) {
+                Researcher r = (Researcher)p;
+                r.mountScooter();
+                getWorld().removeObject(this);
+            } else {
+                p.knockDown();
+            }    
+            
+            return true;
+        }
         return false;
     }
 }
