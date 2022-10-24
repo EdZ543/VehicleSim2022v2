@@ -45,7 +45,7 @@ public class VehicleWorld extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(800, 600, 1, false); 
 
-        setPaintOrder (Effect.class, Pedestrian.class, Bus.class, Car.class, Ambulance.class);
+        setPaintOrder (BloodMoon.class, Pedestrian.class, Bus.class, Car.class, Ambulance.class, BloodSplatter.class);
 
         // set up background
         background = new GreenfootImage ("background01.png");
@@ -68,18 +68,18 @@ public class VehicleWorld extends World
 
     private void spawn () {
         // Chance to spawn a vehicle
-        if (Greenfoot.getRandomNumber (60) == 0){
+        if (Greenfoot.getRandomNumber (40) == 0){
             int lane = Greenfoot.getRandomNumber(laneCount);
             if (!laneSpawners[lane].isTouchingVehicle()){
                 int vehicleType = Greenfoot.getRandomNumber(4);
                 if (vehicleType == 0){
-                    addObject(new Car(laneSpawners[lane]), 0, 0);
+                    addObject(new Car(laneSpawners[lane], lane), 0, 0);
                 } else if (vehicleType == 1){
-                    addObject(new Bus(laneSpawners[lane], 10), 0, 0);
+                    addObject(new Bus(laneSpawners[lane], lane, 10), 0, 0);
                 } else if (vehicleType == 2){
-                    addObject(new Ambulance(laneSpawners[lane]), 0, 0);
+                    addObject(new Ambulance(laneSpawners[lane], lane), 0, 0);
                 } else if (vehicleType == 3){
-                    addObject(new Scooter(laneSpawners[lane]), 0, 0);
+                    addObject(new Scooter(laneSpawners[lane], lane), 0, 0);
                 }
             }
         }
@@ -94,7 +94,7 @@ public class VehicleWorld extends World
         }
         
         // Chance to spawn an effect
-        if (!BloodMoon.happening() && Greenfoot.getRandomNumber(400) == 0) {
+        if (!BloodMoon.happening() && Greenfoot.getRandomNumber(1000) == 0) {
             int duration = Greenfoot.getRandomNumber(200) + 100;
             addObject(new BloodMoon(duration), getWidth() / 2, getHeight() / 2);
         }

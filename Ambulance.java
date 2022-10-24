@@ -5,8 +5,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Ambulance extends Vehicle
 {
-    public Ambulance(VehicleSpawner origin){
-        super (origin); // call the superclass' constructor first
+    public Ambulance(VehicleSpawner origin, int lane){
+        super (origin, lane); // call the superclass' constructor first
         
         maxSpeed = 2.5;
         speed = maxSpeed;

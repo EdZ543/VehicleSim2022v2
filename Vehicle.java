@@ -9,15 +9,16 @@ public abstract class Vehicle extends SuperSmoothMover
     protected double maxSpeed;
     protected double speed;
     protected int direction; // 1 = right, -1 = left
-    protected boolean moving;
+    protected boolean moving = true;
     protected int yOffset;
     protected VehicleSpawner origin;
     protected boolean swerving = false;
     protected double swerveTimer = 0;
+    protected int lane;
     
-    public Vehicle (VehicleSpawner origin) {
+    public Vehicle (VehicleSpawner origin, int lane) {
         this.origin = origin;
-        moving = true;
+        this.lane = lane;
         
         if (origin.facesRightward()){
             direction = 1;
@@ -70,6 +71,9 @@ public abstract class Vehicle extends SuperSmoothMover
             speed = maxSpeed;
         } else {
             speed = ahead.getSpeed();
+            if (lane != -1) {
+                attemptLaneChange();
+            }
         }
         
         move (speed * direction);
@@ -81,13 +85,50 @@ public abstract class Vehicle extends SuperSmoothMover
         }
         
         if (!getIntersectingObjects(BloodSplatter.class).isEmpty()) {
+            lane = -1;
             if (Math.random() > 0.5) {
                 setRotation(getRotation() + 1);
             } else {
                 setRotation(getRotation() - 1);
             }
         }
-    }   
+    }  
+    
+    protected void attemptLaneChange() {
+        if (lane == 0 || lane == 3) {
+            if (laneClear("below")) changeLanes("below");
+        } else if (lane == 1 || lane == 4) {
+            if (laneClear("above")) changeLanes("above");
+            else if (laneClear("below")) changeLanes("below");
+        } else if (lane == 2 || lane == 5) {
+            if (laneClear("above")) changeLanes("above");
+        }
+    }
+    
+    protected boolean laneClear(String direction) {
+        VehicleChecker vc = new VehicleChecker(getImage().getWidth() + 50, getImage().getHeight());
+        
+        if (direction == "above") {
+            getWorld().addObject(vc, getX(), getY() - 54);
+        } else if (direction == "below") {
+            getWorld().addObject(vc, getX(), getY() + 54);
+        }
+        
+        boolean ret = !vc.isTouchingVehicle();
+        getWorld().removeObject(vc);
+        
+        return ret;
+    }
+    
+    protected void changeLanes(String direction) {
+        if (direction == "above") {
+            setLocation(getX(), getY() - 54);
+            lane--;
+        } else if (direction == "below") {
+            setLocation(getX(), getY() + 54);
+            lane++;
+        }
+    }
 
     /**
      * An accessor that can be used to get this Vehicle's speed. Used, for example, when a vehicle wants to see
@@ -99,6 +140,7 @@ public abstract class Vehicle extends SuperSmoothMover
     
     public void startSwerving() {
         swerving = true;
+        lane = -1;
     }
     
     public void stopSwerving() {

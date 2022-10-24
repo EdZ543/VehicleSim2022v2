@@ -6,9 +6,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Car extends Vehicle
 {
     
-    public Car(VehicleSpawner origin) {
-        super(origin); // call the superclass' constructor
-        maxSpeed = 1.5 + ((Math.random() * 30)/5);
+    public Car(VehicleSpawner origin, int lane) {
+        super(origin, lane); // call the superclass' constructor
+        maxSpeed = 2 + ((Math.random() * 30)/5);
         speed = maxSpeed;
         yOffset = 0;
     }
