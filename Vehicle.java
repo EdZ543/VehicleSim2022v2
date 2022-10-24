@@ -79,6 +79,14 @@ public abstract class Vehicle extends SuperSmoothMover
             double swerveDistance = Math.sin(swerveTimer) * 10;
             setLocation(getX(), getY() + swerveDistance);
         }
+        
+        if (!getIntersectingObjects(BloodSplatter.class).isEmpty()) {
+            if (Math.random() > 0.5) {
+                setRotation(getRotation() + 1);
+            } else {
+                setRotation(getRotation() - 1);
+            }
+        }
     }   
 
     /**

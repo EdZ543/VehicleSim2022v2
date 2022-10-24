@@ -9,15 +9,20 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class BloodSplatter extends Effect
 {
     public BloodSplatter() {
-        super(100, 50);
+        super(200, 50);
     }
     
-    /**
-     * Act - do whatever the BloodSplatter wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act()
-    {
-        // Add your action code here.
+    public void addedToWorld(World w) {
+        VehicleWorld vw = (VehicleWorld)w;
+        image = drawBloodSplatter();
+        setImage(image);
+    }
+    
+    public static GreenfootImage drawBloodSplatter() {
+        GreenfootImage ret = new GreenfootImage(75, 45);
+        ret.setColor(new Color(79, 22, 13));
+        ret.fillOval(0, 0, 75, 45);
+        
+        return ret;
     }
 }

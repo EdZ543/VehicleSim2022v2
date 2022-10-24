@@ -25,6 +25,7 @@ public abstract class Pedestrian extends SuperSmoothMover
         speed = 0;
         setRotation (90);
         awake = false;
+        getWorld().addObject(new BloodSplatter(), getX(), getY());
     }
 
     /**

@@ -7,9 +7,18 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  *     and the interactions smoother.</p>
  * <p> The Pedestrians are not as dumb as before (they don't want straight into Vehicles) and the Vehicles
  *     do a somewhat better job detecting Pedestrians.</p>
+ *     
+ * Credits:
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Features:
+ * - Vehicles make vroom sound when changing langes
+ * - Ambulances make siren noise when healing a pedestrian
+ * - Ominous sound plays when blood moon starts
+ * - Footstep sounds play randomly
+ * - 
+ * 
+ * @author Eddie Zhuang 
+ * @version 1.0.0
  */
 public class VehicleWorld extends World
 {
