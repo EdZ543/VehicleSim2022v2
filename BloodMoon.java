@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.ArrayList;
 
 /**
  * Write a description of class BloodMoon here.
@@ -7,17 +8,64 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @version (a version number or a date)
  */
 public class BloodMoon extends Effect
-{    
-    public BloodMoon() {
-        super(500, 90);
+{   
+    private static boolean happening = false;
+    
+    public BloodMoon(int duration) {
+        super(duration, 90);
+        
+        // static variable to make sure two blood moons don't happen simultaneously
+        happening = true;
     }
     
-    /**
-     * Act - do whatever the BloodMoon wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act()
-    {
-        // Add your action code here.
+    public void addedToWorld(World w) {
+        VehicleWorld vw = (VehicleWorld)w;
+        image = drawBloodMoon(vw.getWidth(), vw.getHeight(), 100, 690, 10);
+        setImage(image);
+        
+        // make entities faster
+        for (Entity e : vw.getObjects(Entity.class)) {
+            e.scaleSpeed(3);
+        }
+        
+        // make vehicles swerve in sine wave pattern
+        for (Vehicle v : vw.getObjects(Vehicle.class)) {
+            v.startSwerving();
+        }
+    }
+    
+    public void act() {
+        // undo effects on world
+        if (fadeDuration == 0) {
+            VehicleWorld vw = (VehicleWorld)getWorld();
+            
+            for (Entity e : vw.getObjects(Entity.class)) {
+                e.resetSpeed();
+            }
+        
+            for (Vehicle v : vw.getObjects(Vehicle.class)) {
+                v.stopSwerving();
+            }
+            
+            happening = false;
+        }
+        
+        super.act();
+    }
+    
+    public static GreenfootImage drawBloodMoon(int width, int height, int transparency, int moonX, int moonY) {
+        GreenfootImage ret = new GreenfootImage(width, height);
+        
+        GreenfootImage moon = new GreenfootImage("moon.png");
+        ret.drawImage(moon, moonX, moonY);
+        
+        ret.setColor(new Color(255, 0, 0, transparency));
+        ret.fill();
+        
+        return ret;
+    }
+    
+    public static boolean happening() {
+        return happening;
     }
 }

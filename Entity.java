@@ -12,10 +12,10 @@ public class Entity extends Pedestrian
     private int lifeTimer = 0;
     private int viewRadius = 600;
     private int armRadius = 30;
-    private int speedIncrease = 2;
+    private double speedIncrease = 0.2;
     
     public Entity() {
-        super(Math.random() * 2 + 1);
+        super(Math.random() + 0.2);
     }
     
     /**
@@ -39,7 +39,7 @@ public class Entity extends Pedestrian
             } else if (currentTarget instanceof Entity) {
                 getWorld().removeObject(currentTarget);
                 normalSpeed += speedIncrease;
-                speed = normalSpeed;
+                speed += speedIncrease;
             }
         }
     }
@@ -57,9 +57,18 @@ public class Entity extends Pedestrian
     }
     
     private boolean isSuitableTarget(Pedestrian p) {
-        boolean exists = p != null && p.getWorld() != null;
-        boolean rightType = (p instanceof Researcher && p.isAwake()) || (p instanceof Entity && !p.isAwake());
-        return exists && rightType;
+        if (p == null || p.getWorld() == null) {
+            return false;
+        }
+        
+        if (p instanceof Researcher) {
+            Researcher r = (Researcher)p;
+            return r.isAwake() && !r.walkingToTarget();
+        } else if (p instanceof Entity) {
+            return !p.isAwake();
+        }
+        
+        return false;
     }
     
     public void knockDown() {

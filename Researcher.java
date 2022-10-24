@@ -15,7 +15,7 @@ public class Researcher extends Pedestrian
     Random rand = new Random();
     
     public Researcher(int direction) {
-        super(Math.random() * 2 + 1);
+        super(Math.random() + 1);
         
         this.direction = direction;
     }
@@ -62,5 +62,9 @@ public class Researcher extends Pedestrian
         speed = 0;
         setRotation (90);
         awake = false;
+    }
+    
+    public boolean walkingToTarget() {
+        return walkingToTarget;
     }
 }

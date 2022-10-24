@@ -35,4 +35,12 @@ public abstract class Pedestrian extends SuperSmoothMover
     public boolean isAwake () {
         return awake;
     }
+    
+    public void scaleSpeed(double factor) {
+        speed *= factor;
+    }
+    
+    public void resetSpeed() {
+        speed = normalSpeed;
+    }
 }

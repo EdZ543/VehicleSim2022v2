@@ -8,16 +8,29 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Effect extends Actor
 {
-    private GreenfootImage image;
+    protected GreenfootImage image;
+    protected int duration;
+    protected int fadeDuration;
+    protected double fadeAmount;
+    protected double preciseTransparency = 255;
     
-    public Effect() {
+    public Effect(int duration, int fadeDuration) {
+        this.duration = duration;
+        this.fadeDuration = fadeDuration;
+        
+        // calculate the amount the transparency must decrease by each act when fading
+        fadeAmount = 255 / (double)fadeDuration;
     }
     
-    /**
-     * Act - do whatever the Effect wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act()
-    {
+    public void act() {
+        if (duration > 0) {
+            duration--;
+        } else if (fadeDuration > 0) {
+            preciseTransparency -= fadeAmount;
+            image.setTransparency((int)preciseTransparency);
+            fadeDuration--;
+        } else {
+            getWorld().removeObject(this);
+        }
     }
 }

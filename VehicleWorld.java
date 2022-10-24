@@ -36,7 +36,7 @@ public class VehicleWorld extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(800, 600, 1, false); 
 
-        setPaintOrder (Pedestrian.class, Bus.class, Car.class, Ambulance.class);
+        setPaintOrder (Effect.class, Pedestrian.class, Bus.class, Car.class, Ambulance.class);
 
         // set up background
         background = new GreenfootImage ("background01.png");
@@ -50,7 +50,7 @@ public class VehicleWorld extends World
 
         // Create houses
         for(int i = 0; i < numHouses; i++) {
-            addObject(new LiminalHouse(10, 100), 50 + i * houseSpacing, 109);
+            addObject(new LiminalHouse(10, 70), 50 + i * houseSpacing, 109);
         }
     }
     public void act () {
@@ -76,12 +76,18 @@ public class VehicleWorld extends World
         }
         
         // Chance to spawn pedestrians
-        if (Greenfoot.getRandomNumber(60) == 0) {
+        if (Greenfoot.getRandomNumber(200) == 0) {
             int spawnX = Greenfoot.getRandomNumber(getWidth());
             int pedestrianType = Greenfoot.getRandomNumber(1);
             if (pedestrianType == 0) {
                 addObject(new Entity(), spawnX, 500);
             }
+        }
+        
+        // Chance to spawn an effect
+        if (!BloodMoon.happening() && Greenfoot.getRandomNumber(250) == 0) {
+            int duration = Greenfoot.getRandomNumber(600) + 600;
+            addObject(new BloodMoon(duration), getWidth() / 2, getHeight() / 2);
         }
     }
 
