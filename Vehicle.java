@@ -24,7 +24,6 @@ public abstract class Vehicle extends SuperSmoothMover
         
         if (origin.facesRightward()){
             direction = 1;
-            
         } else {
             direction = -1;
             getImage().mirrorHorizontally();
@@ -68,8 +67,7 @@ public abstract class Vehicle extends SuperSmoothMover
         // since every Vehicle "promises" to have a getSpeed() method,
         // we can call that on any vehicle to find out it's speed
         Vehicle ahead = (Vehicle) getOneObjectAtOffset (direction * (int)(speed + getImage().getWidth()/2 + 4), 0, Vehicle.class);
-        if (ahead == null)
-        {
+        if (ahead == null) {
             speed = maxSpeed;
         } else {
             speed = ahead.getSpeed();
@@ -80,12 +78,14 @@ public abstract class Vehicle extends SuperSmoothMover
         
         move (speed * direction);
         
+        // if blood moon appears, start driving in sine-wave pattern
         if (swerving) {
             swerveTimer += 0.1;
             double swerveDistance = Math.sin(swerveTimer) * 10;
             setLocation(getX(), getY() + swerveDistance);
         }
         
+        // if driving over a blood puddle, start drifting from lane
         if (!getIntersectingObjects(BloodSplatter.class).isEmpty()) {
             lane = -1;
             if (Math.random() > 0.5) {
@@ -96,6 +96,7 @@ public abstract class Vehicle extends SuperSmoothMover
         }
     }  
     
+    // impelments lane change algorithm
     protected void attemptLaneChange() {
         if (lane == 0 || lane == 3) {
             if (laneClear("below")) changeLanes("below");
@@ -107,6 +108,7 @@ public abstract class Vehicle extends SuperSmoothMover
         }
     }
     
+    // checks if lane above or below is clear with VehicleChecker class
     protected boolean laneClear(String direction) {
         VehicleChecker vc = new VehicleChecker(getImage().getWidth() + 50, getImage().getHeight());
         
@@ -122,6 +124,7 @@ public abstract class Vehicle extends SuperSmoothMover
         return ret;
     }
     
+    // actually moves the vehicle for a lane change
     protected void changeLanes(String direction) {
         if (direction == "above") {
             setLocation(getX(), getY() - 54);

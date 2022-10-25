@@ -12,11 +12,11 @@ public class BloodSplatter extends Effect
     
     public BloodSplatter() {
         super(200, 50);
+        
+        // play squelch sound on spawn
         squelchSound.play();
-    }
-    
-    public void addedToWorld(World w) {
-        VehicleWorld vw = (VehicleWorld)w;
+        
+        // set image
         image = drawBloodSplatter();
         setImage(image);
     }

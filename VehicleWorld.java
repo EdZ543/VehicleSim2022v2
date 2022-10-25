@@ -18,6 +18,23 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  *     - Bite into apple 1
  * 
  * Features:
+ * - Takes place in a kind of altered-reality suburbia
+ * - Vehicles change lane when behind a slower vehicle
+ * - Ambulances heal pedestrians
+ * - Buses pick up pedestrians
+ * - Scooters run over entities and get ridden by researchers
+ * - Houses spawn researchers
+ * - Researchers walk to specific x position before beginning to cross the road
+ * - Entities
+ *     - Chases after and knocks over pedestrians
+ *     - Eats dead entities to gain speed
+ * - Effects
+ *     - Blood moon
+ *         - Makes vehicles drive in a sine-wave pattern
+ *         - Speeds up entities
+ *     - Blood splatter
+ *         - Blood puddle that appears after a pedestrian is killed
+ *         - Causes vehicles to skid and go in random directions
  * - Sounds
  *     - Vehicles make vroom sound when changing langes
  *     - Ambulances make siren noise when healing a pedestrian

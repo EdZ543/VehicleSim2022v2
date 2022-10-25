@@ -24,12 +24,15 @@ public class Effect extends Actor
     
     public void act() {
         if (duration > 0) {
+            // timer until starts to fade
             duration--;
         } else if (fadeDuration > 0) {
+            // start to fade once duration is up
             preciseTransparency -= fadeAmount;
             image.setTransparency((int)preciseTransparency);
             fadeDuration--;
         } else {
+            // once fully faded, remove from world
             getWorld().removeObject(this);
         }
     }

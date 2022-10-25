@@ -26,16 +26,21 @@ public class Entity extends Pedestrian
     public void act()
     {
         if (awake) {
+            // updates target periodically to prevent lag
             if (lifeTimer % 10 == 0) {
                 targetNearest();
             }
             lifeTimer++;
             
+            // moves towards target
             if (isSuitableTarget(currentTarget)) {
                 moveTowards(currentTarget, speed);
             }
             
+            // do something if it reaches the target
             if (isSuitableTarget(currentTarget) && distanceTo(currentTarget) <= armRadius) {
+                // if researcher, knock it down
+                // however, if they are riding a scooter, the entity gets knocked down
                 if (currentTarget instanceof Researcher) {
                     Researcher r = (Researcher)currentTarget;
                     if (r.scooting()) {
@@ -43,6 +48,7 @@ public class Entity extends Pedestrian
                     } else {
                         r.knockDown();
                     }
+                // if another entity who is dead, eat it to gain speed
                 } else if (currentTarget instanceof Entity) {
                     getWorld().removeObject(currentTarget);
                     normalSpeed += speedIncrease;
@@ -54,6 +60,7 @@ public class Entity extends Pedestrian
     }
     
     private void targetNearest() {
+        // targets the nearest eligible actor
         for (Pedestrian p : getObjectsInRange(viewRadius, Pedestrian.class)) {
             if (isSuitableTarget(currentTarget)) {
                 if (isSuitableTarget(p) && distanceTo(p) < distanceTo(currentTarget)) {
@@ -65,11 +72,14 @@ public class Entity extends Pedestrian
         }
     }
     
+    // checks if a pedestrian is a suitable target
     private boolean isSuitableTarget(Pedestrian p) {
+        // if the entity doesn't exist, not suitable
         if (p == null || p.getWorld() == null) {
             return false;
         }
         
+        // suitable targets are alive researchers who are walking across the street, and other dead entities
         if (p instanceof Researcher) {
             Researcher r = (Researcher)p;
             return r.isAwake() && !r.walkingToTarget();

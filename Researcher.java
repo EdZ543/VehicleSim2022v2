@@ -28,6 +28,7 @@ public class Researcher extends Pedestrian
     public void act()
     {
         if (awake){
+            // walks horizontally to specific spot, then walks vertically across the street
             if (walkingToTarget) {
                 walkToTarget();            
             } else if (getOneObjectAtOffset(0, (int)(direction * getImage().getHeight()/2 + (int)(direction * speed)), Vehicle.class) == null){
@@ -48,6 +49,8 @@ public class Researcher extends Pedestrian
     }
     
     private void walkToTarget() {
+        // if reached "target" (place where researcher will start crossing) then start crossing
+        // else, walk towards target
         if (Math.abs(getX() - targetX) < speed) {
             setLocation(targetX, getY());
             walkingToTarget = false;
@@ -62,6 +65,7 @@ public class Researcher extends Pedestrian
         return walkingToTarget;
     }
     
+    // puts researcher on scooter, turning it into an unstoppable entity killing machine
     public void mountScooter() {
         scooting = true;
             

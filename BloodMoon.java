@@ -17,10 +17,13 @@ public class BloodMoon extends Effect
         
         // static variable to make sure two blood moons don't happen simultaneously
         happening = true;
+        
+        // play sound when blood moon starts
         ominousSound.play();
     }
     
     public void addedToWorld(World w) {
+        // set image
         VehicleWorld vw = (VehicleWorld)w;
         image = drawBloodMoon(vw.getWidth(), vw.getHeight(), 100, 690, 10);
         setImage(image);

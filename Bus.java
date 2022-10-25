@@ -31,6 +31,7 @@ public class Bus extends Vehicle
             checkHitPedestrian();
         }
         
+        // stops temporarily when picking up new passenger
         if (stopTimer == 0) {
             drive();
         } else {
@@ -40,12 +41,14 @@ public class Bus extends Vehicle
     }
 
     public boolean checkHitPedestrian () {
+        // check in front and beside for pedestrians
         Pedestrian[] ps = {
             (Pedestrian)getOneObjectAtOffset((int)speed + getImage().getWidth()/2, 0, Pedestrian.class),
             (Pedestrian)getOneObjectAtOffset(0, getImage().getHeight()/2 + pickupRange, Pedestrian.class),
             (Pedestrian)getOneObjectAtOffset(0, -getImage().getHeight()/2 - pickupRange, Pedestrian.class),
         };
         
+        // picks up passenger if detected
         for (int i = 0; i < ps.length; i++) {
             if (ps[i] != null && ps[i].isAwake()){
                 stopTimer = 60;
