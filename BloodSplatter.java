@@ -8,8 +8,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class BloodSplatter extends Effect
 {
+    private GreenfootSound squelchSound = new GreenfootSound("squelch.wav");
+    
     public BloodSplatter() {
         super(200, 50);
+        squelchSound.play();
     }
     
     public void addedToWorld(World w) {

@@ -6,6 +6,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public abstract class Vehicle extends SuperSmoothMover
 {
+    private GreenfootSound vroomSound = new GreenfootSound("vroom.mp3");
+    
     protected double maxSpeed;
     protected double speed;
     protected int direction; // 1 = right, -1 = left
@@ -128,6 +130,8 @@ public abstract class Vehicle extends SuperSmoothMover
             setLocation(getX(), getY() + 54);
             lane++;
         }
+        
+        vroomSound.play();
     }
 
     /**

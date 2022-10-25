@@ -39,6 +39,7 @@ public class VehicleWorld extends World
     public static Color YELLOW_LINE = new Color (255, 216, 0);
 
     // Instance variables / Objects
+    private GreenfootSound footstepSound = new GreenfootSound("footsteps.wav");
     private boolean twoWayTraffic = true, splitAtCenter = true;
     private int laneHeight = 48, laneCount = 6, spaceBetweenLanes = 6;
     private int[] lanePositionsY;
@@ -68,7 +69,7 @@ public class VehicleWorld extends World
 
         // Create houses
         for(int i = 0; i < numHouses; i++) {
-            addObject(new LiminalHouse(10, 70), 50 + i * houseSpacing, 109);
+            addObject(new LiminalHouse(10, 50), 50 + i * houseSpacing, 109);
         }
     }
     public void act () {
@@ -94,7 +95,7 @@ public class VehicleWorld extends World
         }
         
         // Chance to spawn pedestrians
-        if (Greenfoot.getRandomNumber(200) == 0) {
+        if (Greenfoot.getRandomNumber(100) == 0) {
             int spawnX = Greenfoot.getRandomNumber(getWidth());
             int pedestrianType = Greenfoot.getRandomNumber(1);
             if (pedestrianType == 0) {
@@ -106,6 +107,11 @@ public class VehicleWorld extends World
         if (!BloodMoon.happening() && Greenfoot.getRandomNumber(1000) == 0) {
             int duration = Greenfoot.getRandomNumber(200) + 100;
             addObject(new BloodMoon(duration), getWidth() / 2, getHeight() / 2);
+        }
+        
+        // Chance to play ambient sound
+        if (Greenfoot.getRandomNumber(300) == 0) {
+            footstepSound.play();
         }
     }
 

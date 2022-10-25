@@ -8,6 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Entity extends Pedestrian
 {
+    private GreenfootSound eatSound = new GreenfootSound("munch.wav");
     private Pedestrian currentTarget = null;
     private int lifeTimer = 0;
     private int viewRadius = 600;
@@ -46,6 +47,7 @@ public class Entity extends Pedestrian
                     getWorld().removeObject(currentTarget);
                     normalSpeed += speedIncrease;
                     speed += speedIncrease;
+                    eatSound.play();
                 }
             }
         }

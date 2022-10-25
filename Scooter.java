@@ -28,8 +28,8 @@ public class Scooter extends Vehicle
     public boolean checkHitPedestrian () {
         Pedestrian p = (Pedestrian)getOneObjectAtOffset((int)speed + getImage().getWidth()/2, 0, Pedestrian.class);
         
-        if (p != null){
-            if (p instanceof Researcher && p.isAwake()) {
+        if (p != null && p.isAwake()){
+            if (p instanceof Researcher) {
                 Researcher r = (Researcher)p;
                 r.mountScooter();
                 getWorld().removeObject(this);

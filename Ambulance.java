@@ -5,6 +5,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Ambulance extends Vehicle
 {
+    private GreenfootSound sirenSound = new GreenfootSound("siren.wav");
+    
     public Ambulance(VehicleSpawner origin, int lane){
         super (origin, lane); // call the superclass' constructor first
         
@@ -28,6 +30,7 @@ public class Ambulance extends Vehicle
         
         if (p != null && !p.isAwake()){
             p.healMe();
+            sirenSound.play();
             return true;
         }
         return false;

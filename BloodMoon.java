@@ -10,12 +10,14 @@ import java.util.ArrayList;
 public class BloodMoon extends Effect
 {   
     private static boolean happening = false;
+    private GreenfootSound ominousSound = new GreenfootSound("spoopy.wav");
     
     public BloodMoon(int duration) {
         super(duration, 90);
         
         // static variable to make sure two blood moons don't happen simultaneously
         happening = true;
+        ominousSound.play();
     }
     
     public void addedToWorld(World w) {
