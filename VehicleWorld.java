@@ -9,6 +9,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  *     do a somewhat better job detecting Pedestrians.</p>
  *     
  * Credits:
+ * - Other images and boilerplate are from Mr. Cohen and Greenfoot
+ * - Images
+ *     - Houses: https://www.reddit.com/r/LiminalSpace/comments/mej9il/heres_a_higher_quality_version_of_the_iconic/ by u/dreamsofliminal
+ *     - Entities: https://www.deviantart.com/midian-p/art/Walfas-Custom-The-Backrooms-Monster-916246385 by Midian-P
+ *     - Researchers: https://www.kappler.com/products/training-suits by Kappler
+ *     - Scooter: https://www.reidbikes.com/scooters/electricscooters/ by ReidBikes
+ *     - Moon: https://www.deviantart.com/astoko/art/blood-moon-AStoko-2-STOCK-565694257 by AStoKo
  * - Sound effects obtained from https://www.zapsplat.com:
  *     - ATV, quad bike pass by, medium speed 1
  *     - Ambulance driving, siren, engine, internal perspective
@@ -16,7 +23,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  *     - 2x children run past on shingle
  *     - Body impact, stab with knife or hit with a squelch, splatter and drip of blood
  *     - Bite into apple 1
- * 
+ *     
  * Features:
  * - Takes place in a kind of altered-reality suburbia
  * - Vehicles change lane when behind a slower vehicle
