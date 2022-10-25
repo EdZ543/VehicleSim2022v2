@@ -9,13 +9,22 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  *     do a somewhat better job detecting Pedestrians.</p>
  *     
  * Credits:
+ * - Sound effects obtained from https://www.zapsplat.com:
+ *     - ATV, quad bike pass by, medium speed 1
+ *     - Ambulance driving, siren, engine, internal perspective
+ *     - Bass, Pulse, LFE, Horror, Spooky, Seamless Loop, Tension, Suspense
+ *     - 2x children run past on shingle
+ *     - Body impact, stab with knife or hit with a squelch, splatter and drip of blood
+ *     - Bite into apple 1
  * 
  * Features:
- * - Vehicles make vroom sound when changing langes
- * - Ambulances make siren noise when healing a pedestrian
- * - Ominous sound plays when blood moon starts
- * - Footstep sounds play randomly
- * - 
+ * - Sounds
+ *     - Vehicles make vroom sound when changing langes
+ *     - Ambulances make siren noise when healing a pedestrian
+ *     - Ominous sound plays when blood moon starts
+ *     - Footstep sounds play randomly
+ *     - Squelch sound plays when blood splatter appears
+ *     - Eating sound plays when an Entity consumes another Entity
  * 
  * @author Eddie Zhuang 
  * @version 1.0.0
